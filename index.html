@@ -1,78 +1,389 @@
-// Aguarda o DOM carregar completamente
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // 1. HEADER SCROLL EFFECT
-    const header = document.querySelector('.header');
-    
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            header.style.background = 'rgba(10, 10, 10, 0.95)';
-            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
-        } else {
-            header.style.background = 'rgba(10, 10, 10, 0.9)';
-            header.style.boxShadow = 'none';
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arvexa Landing Page - Solução digital inovadora">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Arvexa - Plataforma Digital</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    });
 
-    // 2. SMOOTH SCROLL PARA LINKS INTERNOS
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 2rem;
+        }
+
+        .header.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #00d4ff;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .hero {
+            margin-top: 5rem;
+            padding: 4rem 2rem;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #00d4ff;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaaaaa;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #00d4ff;
+            color: #0a0a0a;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: #00a8cc;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 212, 255, 0.3);
+        }
+
+        .features {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 8px 16px rgba(0, 212, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 2rem;
+            text-align: center;
+            color: #aaaaaa;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 1rem;
+                background: rgba(10, 10, 10, 0.98);
+                padding: 2rem;
+                border-top: 1px solid rgba(0, 212, 255, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                margin-top: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="logo">Arvexa</div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="menuitem"><a href="#home">Home</a></li>
+                <li role="menuitem"><a href="#features">Features</a></li>
+                <li role="menuitem"><a href="#about">Sobre</a></li>
+                <li role="menuitem"><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home" role="region" aria-label="Hero section">
+            <div class="hero-content">
+                <h1>Transforme seu Negócio</h1>
+                <p>Solução digital completa para impulsionar seu crescimento</p>
+                <a href="#contact" class="cta-button">Começar Agora</a>
+            </div>
+        </section>
+
+        <section class="features" id="features" role="region" aria-label="Features section">
+            <article class="feature-card">
+                <h3>⚡ Performance</h3>
+                <p>Velocidade otimizada para melhor experiência do usuário</p>
+            </article>
+            <article class="feature-card">
+                <h3>🔒 Segurança</h3>
+                <p>Proteção de dados com encriptação de última geração</p>
+            </article>
+            <article class="feature-card">
+                <h3>📱 Responsivo</h3>
+                <p>Funciona perfeitamente em todos os dispositivos</p>
+            </article>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <p>&copy; <span id="year"></span> Arvexa. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Utility: Throttle function para melhorar performance
+        function throttle(func, delay) {
+            let lastCall = 0;
+            return function(...args) {
+                const now = Date.now();
+                if (now - lastCall >= delay) {
+                    lastCall = now;
+                    func(...args);
+                }
+            };
+        }
+
+        // Utility: Safe DOM selector with validation
+        function getElement(selector) {
+            const element = document.querySelector(selector);
+            if (!element) {
+                console.warn(`Element not found: ${selector}`);
+                return null;
+            }
+            return element;
+        }
+
+        // 1. HEADER SCROLL EFFECT - COM THROTTLE
+        const header = getElement('.header');
+        if (header) {
+            window.addEventListener('scroll', throttle(() => {
+                header.classList.toggle('scrolled', window.scrollY > 100);
+            }, 50));
+        }
+
+        // 2. SMOOTH SCROLL PARA LINKS INTERNOS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const targetId = anchor.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = getElement(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    closeMenu(); // Fecha menu mobile se estiver aberto
+                }
+            });
+        });
+
+        // 3. MENU MOBILE FUNCIONAL
+        const menuToggle = getElement('#menuToggle');
+        const navLinks = getElement('#navLinks');
+
+        function toggleMenu() {
+            if (menuToggle && navLinks) {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                menuToggle.setAttribute('aria-expanded', 
+                    menuToggle.classList.contains('active'));
+            }
+        }
+
+        function closeMenu() {
+            if (menuToggle && navLinks) {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', toggleMenu);
+        }
+
+        // Fecha menu ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (menuToggle && navLinks && 
+                !menuToggle.contains(e.target) && 
+                !navLinks.contains(e.target)) {
+                closeMenu();
             }
         });
-    });
 
-    // 3. MENU MOBILE (fallback para telas pequenas)
-    const menuButton = document.querySelector('.menu-mobile');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (menuButton) {
-        menuButton.addEventListener('click', function() {
-            // Versão simples: se quiser um menu mobile de verdade, 
-            // pode expandir depois. Por enquanto só mostra no console.
-            console.log('Menu mobile clicado - versão desktop mantida');
-            
-            // Opcional: alerta amigável
-            if (window.innerWidth <= 768) {
-                alert('Menu mobile em desenvolvimento. Por enquanto, use os links do desktop.');
-            }
+        // 4. ANIMAÇÃO DE ENTRADA (já feita via CSS)
+        // Removida - agora usa CSS animation que é mais performático
+
+        // 5. DETECTAR LINKS EXTERNOS COM SEGURANÇA
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.setAttribute('rel', 'noopener noreferrer');
+            link.addEventListener('click', function() {
+                console.log('Abrindo link externo seguro:', this.href);
+            });
         });
-    }
 
-    // 4. ANIMAÇÃO SIMPLES DE ENTRADA (opcional)
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-        heroContent.style.opacity = '0';
-        heroContent.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            heroContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            heroContent.style.opacity = '1';
-            heroContent.style.transform = 'translateY(0)';
-        }, 100);
-    }
+        // 6. ATUALIZAR ANO NO COPYRIGHT - SEM VULNERABILIDADE XSS
+        const yearElement = getElement('#year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
 
-    // 5. DETECTAR TOQUE EM LINKS EXTERNOS (segurança)
-    document.querySelectorAll('a[target="_blank"]').forEach(link => {
-        link.addEventListener('click', function() {
-            console.log('Link externo:', this.href);
+        // 7. ANALYTICS EVENTS (opcional, para rastrear ações)
+        function trackEvent(eventName, eventData = {}) {
+            console.log(`Event: ${eventName}`, eventData);
+            // Aqui você pode integrar com Google Analytics ou similar
+        }
+
+        document.querySelectorAll('.cta-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                trackEvent('cta_click', { button: btn.textContent });
+            });
         });
-    });
-
-    // 6. ATUALIZAR ANO NO COPYRIGHT (opcional)
-    const yearElement = document.querySelector('.footer-copyright p');
-    if (yearElement) {
-        const currentYear = new Date().getFullYear();
-        yearElement.innerHTML = yearElement.innerHTML.replace('2026', currentYear);
-    }
-});
+    </script>
+</body>
+</html>
