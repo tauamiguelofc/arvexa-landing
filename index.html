@@ -3,14 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Arvexa Landing Page - Solução digital inovadora">
+    <meta name="description" content="Arvexa - Engenharia Química + Sistemas Autônomos. AUTOLAB GENESIS: plataforma de baixo custo para automação laboratorial.">
+    <meta name="author" content="Tauã · Arvexa Technology's">
     <meta name="theme-color" content="#0a0a0a">
-    <title>Arvexa - Plataforma Digital</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Arvexa Technology's">
+    <meta property="og:description" content="Engenharia Química + Sistemas Autônomos. Do laboratório da UFAL para o mundo.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2300FF9D'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='%230A0A0A' font-family='Arial' font-weight='bold'>A</text></svg>">
+    
+    <!-- Font Awesome (para ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <title>Arvexa · Engenharia Química + Sistemas Autônomos</title>
+    
     <style>
+        /* ===== RESET E VARIÁVEIS ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #111111;
+            --bg-card: #151515;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --text-tertiary: #808080;
+            --accent-primary: #00FF9D;
+            --accent-secondary: #00CC88;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --border-hover: rgba(0, 255, 157, 0.3);
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            --transition: all 0.3s ease;
         }
 
         html {
@@ -18,20 +48,29 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== HEADER ===== */
         .header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            transition: all 0.3s ease;
-            padding: 1rem 2rem;
+            transition: var(--transition);
         }
 
         .header.scrolled {
@@ -39,41 +78,58 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 80px;
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            text-decoration: none;
             font-size: 1.5rem;
-            font-weight: bold;
-            color: #00d4ff;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-dot {
+            color: var(--accent-primary);
+            font-size: 2rem;
+            line-height: 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
         }
 
         .nav-links a {
-            color: #ffffff;
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
         }
 
         .nav-links a:hover {
-            color: #00d4ff;
+            color: var(--accent-primary);
         }
 
         .menu-toggle {
             display: none;
             background: none;
             border: none;
-            color: #ffffff;
+            color: var(--text-primary);
             font-size: 1.5rem;
             cursor: pointer;
             flex-direction: column;
@@ -83,12 +139,13 @@
         .menu-toggle span {
             width: 25px;
             height: 3px;
-            background-color: #00d4ff;
-            transition: all 0.3s ease;
+            background-color: var(--accent-primary);
+            transition: var(--transition);
+            display: block;
         }
 
         .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(10px, 10px);
+            transform: rotate(45deg) translate(8px, 8px);
         }
 
         .menu-toggle.active span:nth-child(2) {
@@ -99,23 +156,508 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
+        /* ===== HERO ===== */
         .hero {
-            margin-top: 5rem;
-            padding: 4rem 2rem;
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 255, 157, 0.1), transparent 70%);
+            pointer-events: none;
         }
 
         .hero-content {
-            max-width: 800px;
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards;
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
         }
 
+        .hero-tagline {
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            display: block;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-name {
+            display: block;
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, white, var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin: 2rem 0;
+            max-width: 600px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 100px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 157, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-primary);
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SEÇÕES ===== */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            background: rgba(0, 255, 157, 0.1);
+            padding: 0.25rem 1rem;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .accent {
+            color: var(--accent-primary);
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* ===== PROJETO CARD ===== */
+        .projeto-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .card-badge {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge {
+            padding: 0.25rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--accent-primary);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-tertiary);
+        }
+
+        .card-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0.75rem 0;
+            color: var(--text-secondary);
+        }
+
+        .feature i {
+            width: 20px;
+            color: var(--accent-primary);
+        }
+
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+        }
+
+        .card-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .card-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .card-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .card-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px dashed var(--border-color);
+        }
+
+        .preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-tertiary);
+        }
+
+        .preview-box i {
+            font-size: 3rem;
+            color: var(--accent-primary);
+            opacity: 0.5;
+        }
+
+        .projetos-future {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .future-text {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .future-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--text-tertiary);
+            border-radius: 50%;
+            animation: dotPulse 1.5s infinite;
+        }
+
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); background: var(--accent-primary); }
+        }
+
+        /* ===== SOBRE ===== */
+        .sobre {
+            background: var(--bg-secondary);
+        }
+
+        .sobre-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .sobre-text {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            line-height: 1.8;
+        }
+
+        .sobre-quote {
+            border-left: 3px solid var(--accent-primary);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .sobre-quote i {
+            color: var(--accent-primary);
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 1.5rem;
+        }
+
+        .sobre-quote blockquote {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        .sobre-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 2rem 0;
+        }
+
+        .skill {
+            padding: 0.5rem 1.25rem;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            margin-right: 0.5rem;
+        }
+
+        .social-link:hover {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+        }
+
+        .sobre-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-block {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-desc {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            padding: 60px 0;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-text {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin: 0 auto 2rem;
+            max-width: 500px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .footer-dot {
+            color: var(--accent-primary);
+            margin-left: 2px;
+        }
+
+        .footer-text {
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .footer-copyright {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== ANIMAÇÕES ===== */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -127,74 +669,16 @@
             }
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: #00d4ff;
-            line-height: 1.2;
+        .hero-content {
+            animation: fadeInUp 0.8s ease forwards;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #aaaaaa;
-            margin-bottom: 2rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 12px 30px;
-            background: #00d4ff;
-            color: #0a0a0a;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .cta-button:hover {
-            background: #00a8cc;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 212, 255, 0.3);
-        }
-
-        .features {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            border-color: #00d4ff;
-            box-shadow: 0 8px 16px rgba(0, 212, 255, 0.15);
-            transform: translateY(-5px);
-        }
-
-        .feature-card h3 {
-            color: #00d4ff;
-            margin-bottom: 1rem;
-        }
-
-        .footer {
-            background: rgba(0, 0, 0, 0.5);
-            border-top: 1px solid rgba(0, 212, 255, 0.2);
-            padding: 2rem;
-            text-align: center;
-            color: #aaaaaa;
-            margin-top: 4rem;
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 1024px) {
+            .hero-name { font-size: 3.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .card-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .sobre-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         @media (max-width: 768px) {
@@ -208,7 +692,9 @@
                 gap: 1rem;
                 background: rgba(10, 10, 10, 0.98);
                 padding: 2rem;
-                border-top: 1px solid rgba(0, 212, 255, 0.2);
+                border-top: 1px solid var(--border-color);
+                backdrop-filter: blur(10px);
+                z-index: 999;
             }
 
             .nav-links.active {
@@ -219,171 +705,356 @@
                 display: flex;
             }
 
-            .hero h1 {
-                font-size: 2rem;
+            .hero-name { font-size: 2.5rem; }
+            .hero-description { font-size: 1rem; }
+            
+            .projeto-card { padding: 1.5rem; }
+            .card-stats { grid-template-columns: 1fr; }
+            .sobre-stats { grid-template-columns: 1fr; }
+            
+            .cta-box { padding: 2rem; }
+            .cta-title { font-size: 2rem; }
+            .cta-buttons { flex-direction: column; }
+            
+            .footer-content { 
+                flex-direction: column; 
+                text-align: center; 
             }
+            
+            .footer-links { 
+                justify-content: center; 
+            }
+        }
 
-            .hero {
-                margin-top: 4rem;
-            }
+        @media (max-width: 480px) {
+            .container { padding: 0 1rem; }
+            .hero-name { font-size: 2rem; }
+            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-    <header class="header" role="banner">
-        <nav class="nav-container" role="navigation">
-            <div class="logo">Arvexa</div>
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="logo">
+                <span class="logo-text">ARVEXA</span>
+                <span class="logo-dot">●</span>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <ul class="nav-links" id="navLinks" role="menubar">
-                <li role="menuitem"><a href="#home">Home</a></li>
-                <li role="menuitem"><a href="#features">Features</a></li>
-                <li role="menuitem"><a href="#about">Sobre</a></li>
-                <li role="menuitem"><a href="#contact">Contato</a></li>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="https://github.com/tauamiguelofc" target="_blank" rel="noopener noreferrer">GitHub</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero" id="home" role="region" aria-label="Hero section">
-            <div class="hero-content">
-                <h1>Transforme seu Negócio</h1>
-                <p>Solução digital completa para impulsionar seu crescimento</p>
-                <a href="#contact" class="cta-button">Começar Agora</a>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-tagline">// Engenharia Química + Sistemas Autônomos</span>
+                    
+                    <h1>
+                        <span class="hero-name">ARVEXA</span>
+                        <span class="hero-subtitle">Tecnologia que surge do laboratório</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Desenvolvemos soluções de baixo custo para automatizar pesquisas e democratizar o acesso à ciência. 
+                        O <strong>AUTOLAB GENESIS</strong> é nosso primeiro passo — e está apenas começando.
+                    </p>
+                    
+                    <div class="hero-cta">
+                        <a href="#projetos" class="btn btn-primary">
+                            Conhecer projeto
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="https://github.com/tauamiguelofc" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="features" id="features" role="region" aria-label="Features section">
-            <article class="feature-card">
-                <h3>⚡ Performance</h3>
-                <p>Velocidade otimizada para melhor experiência do usuário</p>
-            </article>
-            <article class="feature-card">
-                <h3>🔒 Segurança</h3>
-                <p>Proteção de dados com encriptação de última geração</p>
-            </article>
-            <article class="feature-card">
-                <h3>📱 Responsivo</h3>
-                <p>Funciona perfeitamente em todos os dispositivos</p>
-            </article>
+        <section id="projetos" class="projetos">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">// PROJETO INCUBADOR</span>
+                    <h2 class="section-title">AUTOLAB <span class="accent">GENESIS</span></h2>
+                    <p class="section-description">
+                        Uma plataforma autônoma que está redefinindo o custo da automação laboratorial.
+                    </p>
+                </div>
+                
+                <div class="projeto-card">
+                    <div class="card-grid">
+                        <div>
+                            <div class="card-badge">
+                                <span class="badge status">EM DESENVOLVIMENTO</span>
+                                <span class="badge tag">open source</span>
+                            </div>
+                            
+                            <h3 class="card-title">Automação acessível</h3>
+                            
+                            <p class="card-text">
+                                O AUTOLAB GENESIS nasceu de uma necessidade real: equipamentos de pesquisa são caros 
+                                e inacessíveis. Construímos uma alternativa por <strong>R$ 350</strong> — e compartilhamos tudo.
+                            </p>
+                            
+                            <div class="feature">
+                                <i class="fas fa-microchip"></i>
+                                <span>Arduino Mega + ESP32</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-tint"></i>
+                                <span>Precisão de 0,01 mL</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-chart-line"></i>
+                                <span>4 min por experimento</span>
+                            </div>
+                            
+                            <div class="card-stats">
+                                <div class="stat">
+                                    <span class="stat-value">R$ 350</span>
+                                    <span class="stat-label">custo total</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">98%</span>
+                                    <span class="stat-label">precisão</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">2026</span>
+                                    <span class="stat-label">primeiro protótipo</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-links">
+                                <a href="#" class="card-link">
+                                    <i class="fab fa-github"></i> Código
+                                </a>
+                                <a href="#" class="card-link">
+                                    <i class="fas fa-file-alt"></i> Documentação
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="card-preview">
+                            <div class="preview-box">
+                                <i class="fas fa-flask"></i>
+                                <span>Em breve: mais detalhes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="projetos-future">
+                    <span class="future-text">Outros projetos em desenvolvimento</span>
+                    <div class="future-dots">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="sobre">
+            <div class="container">
+                <div class="sobre-grid">
+                    <div>
+                        <span class="section-tag">// FUNDADOR</span>
+                        <h2 class="section-title">Tauã · <span class="accent">Engenharia Química</span> na UFAL</h2>
+                        
+                        <p class="sobre-text">
+                            Acredito que inovação não precisa de orçamentos milionários — precisa de 
+                            criatividade, código aberto e vontade de compartilhar. O AUTOLAB GENESIS 
+                            é a prova disso: um projeto que começou no laboratório da universidade 
+                            e hoje é a base da Arvexa.
+                        </p>
+                        
+                        <div class="sobre-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <blockquote>
+                                "Não espere ter experiência para começar. Comece para ter experiência."
+                            </blockquote>
+                        </div>
+                        
+                        <div class="sobre-skills">
+                            <span class="skill">Engenharia Química</span>
+                            <span class="skill">Sistemas Embarcados</span>
+                            <span class="skill">C++ / Python</span>
+                            <span class="skill">Automação</span>
+                        </div>
+                        
+                        <div class="sobre-links">
+                            <a href="https://github.com/tauamiguelofc" class="social-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="sobre-stats">
+                        <div class="stat-block">
+                            <span class="stat-number">1</span>
+                            <span class="stat-desc">projeto ativo</span>
+                        </div>
+                        <div class="stat-block">
+                            <span class="stat-number">R$ 350</span>
+                            <span class="stat-desc">investimento inicial</span>
+                        </div>
+                        <div class="stat-block">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-desc">código aberto</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="cta">
+            <div class="container">
+                <div class="cta-box">
+                    <h2 class="cta-title">Acompanhe a jornada</h2>
+                    <p class="cta-text">
+                        Todo o código é aberto. Toda a documentação é pública. 
+                        O AUTOLAB GENESIS é apenas o começo.
+                    </p>
+                    
+                    <div class="cta-buttons">
+                        <a href="https://github.com/tauamiguelofc" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                            GitHub
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-envelope"></i>
+                            Newsletter
+                        </a>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer class="footer" role="contentinfo">
-        <p>&copy; <span id="year"></span> Arvexa. Todos os direitos reservados.</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <span class="footer-logo">ARVEXA<span class="footer-dot">●</span></span>
+                    <p class="footer-text">
+                        Engenharia Química + Sistemas Autônomos.<br>
+                        De Maceió para o mundo.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#projetos">Projetos</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#contato">Contato</a>
+                    <a href="https://github.com/tauamiguelofc" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+                
+                <div class="footer-copyright">
+                    <p>© <span id="year"></span> Arvexa Technology's</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Utility: Throttle function para melhorar performance
-        function throttle(func, delay) {
-            let lastCall = 0;
-            return function(...args) {
-                const now = Date.now();
-                if (now - lastCall >= delay) {
-                    lastCall = now;
-                    func(...args);
+        (function() {
+            "use strict";
+
+            // Utility: Safe element selector
+            const $ = selector => document.querySelector(selector);
+            const $$ = selector => document.querySelectorAll(selector);
+
+            // 1. HEADER SCROLL EFFECT
+            const header = $('.header');
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    header.classList.toggle('scrolled', window.scrollY > 100);
+                }, { passive: true });
+            }
+
+            // 2. MENU MOBILE
+            const menuToggle = $('#menuToggle');
+            const navLinks = $('#navLinks');
+
+            function toggleMenu() {
+                if (menuToggle && navLinks) {
+                    menuToggle.classList.toggle('active');
+                    navLinks.classList.toggle('active');
                 }
-            };
-        }
-
-        // Utility: Safe DOM selector with validation
-        function getElement(selector) {
-            const element = document.querySelector(selector);
-            if (!element) {
-                console.warn(`Element not found: ${selector}`);
-                return null;
             }
-            return element;
-        }
 
-        // 1. HEADER SCROLL EFFECT - COM THROTTLE
-        const header = getElement('.header');
-        if (header) {
-            window.addEventListener('scroll', throttle(() => {
-                header.classList.toggle('scrolled', window.scrollY > 100);
-            }, 50));
-        }
+            function closeMenu() {
+                if (menuToggle && navLinks) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            }
 
-        // 2. SMOOTH SCROLL PARA LINKS INTERNOS
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                const targetId = anchor.getAttribute('href');
-                if (targetId === '#') return;
+            if (menuToggle) {
+                menuToggle.addEventListener('click', toggleMenu);
+            }
 
-                const targetElement = getElement(targetId);
-                if (targetElement) {
-                    e.preventDefault();
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    closeMenu(); // Fecha menu mobile se estiver aberto
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (menuToggle && navLinks && 
+                    !menuToggle.contains(e.target) && 
+                    !navLinks.contains(e.target)) {
+                    closeMenu();
                 }
             });
-        });
 
-        // 3. MENU MOBILE FUNCIONAL
-        const menuToggle = getElement('#menuToggle');
-        const navLinks = getElement('#navLinks');
-
-        function toggleMenu() {
-            if (menuToggle && navLinks) {
-                menuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                menuToggle.setAttribute('aria-expanded', 
-                    menuToggle.classList.contains('active'));
-            }
-        }
-
-        function closeMenu() {
-            if (menuToggle && navLinks) {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
-        }
-
-        if (menuToggle) {
-            menuToggle.addEventListener('click', toggleMenu);
-        }
-
-        // Fecha menu ao clicar fora
-        document.addEventListener('click', (e) => {
-            if (menuToggle && navLinks && 
-                !menuToggle.contains(e.target) && 
-                !navLinks.contains(e.target)) {
-                closeMenu();
-            }
-        });
-
-        // 4. ANIMAÇÃO DE ENTRADA (já feita via CSS)
-        // Removida - agora usa CSS animation que é mais performático
-
-        // 5. DETECTAR LINKS EXTERNOS COM SEGURANÇA
-        document.querySelectorAll('a[target="_blank"]').forEach(link => {
-            link.setAttribute('rel', 'noopener noreferrer');
-            link.addEventListener('click', function() {
-                console.log('Abrindo link externo seguro:', this.href);
+            // Close menu when clicking on a link
+            $$('.nav-links a').forEach(link => {
+                link.addEventListener('click', closeMenu);
             });
-        });
 
-        // 6. ATUALIZAR ANO NO COPYRIGHT - SEM VULNERABILIDADE XSS
-        const yearElement = getElement('#year');
-        if (yearElement) {
-            yearElement.textContent = new Date().getFullYear();
-        }
+            // 3. SMOOTH SCROLL
+            $$('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', (e) => {
+                    const targetId = anchor.getAttribute('href');
+                    if (targetId === '#') return;
 
-        // 7. ANALYTICS EVENTS (opcional, para rastrear ações)
-        function trackEvent(eventName, eventData = {}) {
-            console.log(`Event: ${eventName}`, eventData);
-            // Aqui você pode integrar com Google Analytics ou similar
-        }
-
-        document.querySelectorAll('.cta-button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                trackEvent('cta_click', { button: btn.textContent });
+                    const target = $(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        closeMenu();
+                    }
+                });
             });
-        });
+
+            // 4. UPDATE YEAR
+            const yearSpan = $('#year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // 5. EXTERNAL LINKS SAFETY
+            $$('a[target="_blank"]').forEach(link => {
+                link.setAttribute('rel', 'noopener noreferrer');
+            });
+        })();
     </script>
 </body>
 </html>
