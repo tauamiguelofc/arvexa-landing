@@ -1,0 +1,78 @@
+// Aguarda o DOM carregar completamente
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // 1. HEADER SCROLL EFFECT
+    const header = document.querySelector('.header');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            header.style.background = 'rgba(10, 10, 10, 0.95)';
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+        } else {
+            header.style.background = 'rgba(10, 10, 10, 0.9)';
+            header.style.boxShadow = 'none';
+        }
+    });
+
+    // 2. SMOOTH SCROLL PARA LINKS INTERNOS
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // 3. MENU MOBILE (fallback para telas pequenas)
+    const menuButton = document.querySelector('.menu-mobile');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuButton) {
+        menuButton.addEventListener('click', function() {
+            // Versão simples: se quiser um menu mobile de verdade, 
+            // pode expandir depois. Por enquanto só mostra no console.
+            console.log('Menu mobile clicado - versão desktop mantida');
+            
+            // Opcional: alerta amigável
+            if (window.innerWidth <= 768) {
+                alert('Menu mobile em desenvolvimento. Por enquanto, use os links do desktop.');
+            }
+        });
+    }
+
+    // 4. ANIMAÇÃO SIMPLES DE ENTRADA (opcional)
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        heroContent.style.opacity = '0';
+        heroContent.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            heroContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            heroContent.style.opacity = '1';
+            heroContent.style.transform = 'translateY(0)';
+        }, 100);
+    }
+
+    // 5. DETECTAR TOQUE EM LINKS EXTERNOS (segurança)
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+        link.addEventListener('click', function() {
+            console.log('Link externo:', this.href);
+        });
+    });
+
+    // 6. ATUALIZAR ANO NO COPYRIGHT (opcional)
+    const yearElement = document.querySelector('.footer-copyright p');
+    if (yearElement) {
+        const currentYear = new Date().getFullYear();
+        yearElement.innerHTML = yearElement.innerHTML.replace('2026', currentYear);
+    }
+});
